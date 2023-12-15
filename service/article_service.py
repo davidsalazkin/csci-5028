@@ -7,6 +7,7 @@ from typing import List
 import requests
 
 from dto.article import Article
+from util.sentiment_lib import SentimentLib
 from util.supabase_client import SupabaseClient
 
 
@@ -31,12 +32,12 @@ class ArticleService:
         r_json = requests.get(api_endpoint, params=params).json()
         response = []
         for item in r_json.get('result'):
-            response.append(
-                Article(
-                    title=item.get('headline'),
-                    url=item.get('path')
-                )
+            article = Article(
+                title=item.get('headline'),
+                url=item.get('path')
             )
+            sentiment_analyzed_article = SentimentLib.get_sentiment(article)
+            response.append(sentiment_analyzed_article)
         return response
 
     def scrape_articles(self) -> None:

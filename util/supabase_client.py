@@ -19,7 +19,11 @@ class SupabaseClient:
         Saves a single article to the database.
         :param articles: the article objects to save to the database.
         """
-        self.client.table('articles').upsert([asdict(x) for x in articles]).execute()
+        articles = [asdict(x) for x in articles]
+        for article in articles:
+            if article.get('created_at') is None:
+                del article['created_at']
+        self.client.table('articles').upsert(articles).execute()
 
     def fetch_articles(self):
         """
