@@ -6,7 +6,6 @@ from dataclasses import asdict
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, jsonify
-from textblob import TextBlob
 
 from service import article_service
 
