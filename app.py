@@ -19,7 +19,3 @@ sched.start()
 def fetch_articles():
     response = article_service.fetch_articles_from_db()
     return jsonify([asdict(x) for x in response])
-
-
-if __name__ == '__main__':
-    app.run()
