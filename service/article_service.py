@@ -13,8 +13,8 @@ from util.supabase_client import SupabaseClient
 
 class ArticleService:
 
-    def __init__(self):
-        self.supabase_client = SupabaseClient()
+    def __init__(self, supabase_client: SupabaseClient):
+        self.supabase_client = supabase_client
 
     def fetch_articles(self, search_term: str) -> List[Article]:
         """
