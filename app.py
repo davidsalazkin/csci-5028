@@ -6,6 +6,7 @@ from dataclasses import asdict
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, jsonify
+from flask_cors import cross_origin
 
 from service import article_service
 
@@ -17,6 +18,7 @@ sched.start()
 
 
 @app.route('/fetch-articles', methods=['GET'])
+@cross_origin()
 def fetch_articles():
     response = article_service.fetch_articles_from_db()
     return jsonify([asdict(x) for x in response])
